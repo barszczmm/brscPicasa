@@ -271,7 +271,7 @@
 							} else {
 								o.mode = 'photos';
 							}
-						} else if (path_split.length == 1) { // there is only username in path
+						} else if (path_split.length == 1 && path_split[0] != '') { // there is only username in path
 							o.user = path_split[0];
 							o.mode = 'albums';
 						} else { // can't find anything usefull in path
