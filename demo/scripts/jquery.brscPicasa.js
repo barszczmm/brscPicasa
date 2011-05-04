@@ -1,0 +1,1 @@
+../../jquery.brscPicasa.js

@@ -1,0 +1,24 @@
+.brscPicasaLinkReplacer {}
+	.brscPicasaContainer {}
+		.brscPicasaList { list-style: none; }
+			.brscPicasaListItem {}
+				.brscPicasaListItem {} .brscPicasaLinkWithImage {}
+					.brscPicasaListItem .brscPicasaPhoto { background: url(../images/loader.gif) center center no-repeat; }
+					.brscPicasaListItem .brscPicasaTitle {}
+
+		.brscPicasaAlbums {}
+			.brscPicasaAlbums .brscPicasaListItem {}
+				.brscPicasaAlbums .brscPicasaLinkWithImage {}
+					.brscPicasaAlbums .brscPicasaPhoto {}
+					.brscPicasaAlbums .brscPicasaTitle { font-size: 0.88em; }
+
+		.brscPicasaPhotos {}
+			.brscPicasaPhotos .brscPicasaListItem { float: left; }
+				.brscPicasaPhotos .brscPicasaLinkWithImage {}
+					.brscPicasaPhotos .brscPicasaPhoto { margin-right: 0.5em; }
+					.brscPicasaPhotos .brscPicasaTitle {}
+
+		.brscPicasaSingleItem {}
+			.brscPicasaSingleItem .brscPicasaLinkWithImage {}
+				.brscPicasaSingleItem .brscPicasaPhoto { background: url(../images/loader.gif) center center no-repeat; }
+				.brscPicasaSingleItem .brscPicasaTitle {}
