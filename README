@@ -1,1 +1,1 @@
-See demo/index.html
+brscPicasa is jQuery plugin that easily replaces links to Google’sPicasa Web Albums pages (user page, album page or photo page) withphotos from that page. All you have to do is to copy Picasaweb linkfrom browser address bar, put it on your page and execute brscPicasaplugin. Of course there’s plenty of options if you want to customizeplugin behaviour.Read more in file demo/index.html or online onhttp://tech.barszcz.info/projects/brscpicasa-jquery-plugin/
