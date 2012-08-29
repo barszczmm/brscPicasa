@@ -1,9 +1,9 @@
 #!/bin/bash
 
-ver="1.1"
+ver="1.2"
 name="brscPicasa"
 build=$name-$ver
-info="// brscPicasa v"$ver" - jQuery plugin for displaying photos from Google Picasa Web Albums.\n// c) 2010-2011 Maciej 'barszcz' Marczewski - www.barszcz.info - maciej@marczewski.net.pl\n// Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php"
+info="// brscPicasa v"$ver" - jQuery plugin for displaying photos from Google Picasa Web Albums.\n// c) 2010-2012 Maciej 'barszcz' Marczewski - www.barszcz.info - maciej@marczewski.net.pl\n// Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php"
 
 #minify
 java -jar yuicompressor-2.4.2.jar -o jquery.$name.min.js jquery.$name.js
