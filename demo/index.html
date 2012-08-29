@@ -66,7 +66,7 @@
 
 		<h3>Requirements</h3>
 		<p>You need to include jQuery and brscPicasa somewhere on your page:</p>
-		<pre><code>&lt;script type="text/javascript" src="scripts/jquery-1.5.2.min.js">&lt;/script>
+		<pre><code>&lt;script type="text/javascript" src="scripts/jquery-1.8.0.min.js">&lt;/script>
 &lt;script type="text/javascript" src="scripts/jquery.brscPicasa.min.js">&lt;/script></code></pre>
 
 		<h3>Link replacing mode</h3>
@@ -136,6 +136,16 @@
 					<td><code>''</code></td>
 				</tr>
 				<tr>
+					<td><code>max_results</code></td>
+					<td>How many entries should be retrieved from Picasa on list modes (album list and photo list)</td>
+					<td><code>100</code></td>
+				</tr>
+				<tr>
+					<td><code>start_index</code></td>
+					<td>From which entry start on list modes (album list and photo list) (entries are numerated starting from 1)</td>
+					<td><code>1</code></td>
+				</tr>
+				<tr>
 					<td><code>albums_thumbsize</code></td>
 					<td>Size of album thumbnail on albums listing (values from <a href="#thumbsizes">thumbsizes</a> and <a href="#sizes">sizes</a> below)</td>
 					<td><code>'32c'</code></td>
@@ -178,8 +188,8 @@
 				<tr>
 					<td><code>mode</code></td>
 					<td>What should be displayed and how to behave. Available modes:<br />
-					<code>'albums'</code> - list all user public albums (<code>user</code> must be specified) (only public albums will be displayed even if <code>authkey</code> is specified - I'm currently not sure why private albums are not available)<br />
-					<code>'photos'</code> - list photos from specified album (<code>user</code> and <code>album_id</code> or <code>album_name</code> must be specified) or 100 last user photos (<code>user</code> must be specified, <code>album_id</code> and <code>album_name</code> must be empty)<br />
+					<code>'albums'</code> - list user public albums (<code>user</code> must be specified) (only public albums will be displayed even if <code>authkey</code> is specified - I'm currently not sure why private albums are not available)<br />
+					<code>'photos'</code> - list photos from specified album (<code>user</code> and <code>album_id</code> or <code>album_name</code> must be specified) or simply last user photos (<code>user</code> must be specified, <code>album_id</code> and <code>album_name</code> must be empty)<br />
 					<code>'photo'</code> - display one photo (<code>user</code> and <code>album_id</code> or <code>album_name</code> and <code>photo_id</code> must be specified)<br />
 					<code>'from_link'</code> - find links to Picasa Web Albums and guess what to display from those links (link replacement mode)</td>
 					<td><code>'from_link'</code></td>
@@ -188,15 +198,28 @@
 					<td><code>classes</code></td>
 					<td>Additional classes which will be added to generated content.</td>
 					<td><pre><code>{
-link_replacer: '',
-container: '',
-album_list: '',
-photos_list: '',
-list_item: '',
-single_item: '',
-link_with_image: '',
-photo: '',
-title: ''
+link_replacer: '',   // added to &lt;div> that will be
+                     // inserted in place of &lt;a> element
+                     // in link replacing mode
+container: '',       // added to &lt;div> that contains
+                     // all generated code
+album_list: '',      // added to &lt;ul> element that
+                     // contains list of albums
+photos_list: '',     // added to &lt;ul> element that
+                     // contains list of photos
+list_item: '',       // added to &lt;li> element that
+                     // contains album or photo on list
+thumbnail: '',       // added to &lt;img> element that
+                     // contains thumbnail of album or
+                     // photo on list
+single_item: '',     // added to &lt;div> element that
+                     // contains single photo (not on lists)
+link_with_image: '', // added to &lt;a> element that
+                     // contains &lt;img> element inside
+photo: '',           // added to &lt;img> element
+                     // on single photo mode
+title: ''            // added to &lt;span> element that
+                     // contains title of album or photo
 }</code></pre></td>
 				</tr>
 				<tr>
@@ -237,17 +260,57 @@ title: ''
 
 		<h2 id="link-examples">Link replacing examples <a href="#top" class="top">back to top</a></h2>
 		<div class="example" id="example1">
-			<h3>Public albums</h3>
+			<h3>5 public albums starting from 3rd</h3>
+			<pre><code>$('#example1 .trigger').click(function() {
+	$(this).parent().<strong>brscPicasa({
+		max_results: 5,
+		start_index: 3,
+		classes: {
+			link_with_image: 'loaded-link'
+		}
+	});</strong>
+	$(this).remove();
+});
+</code></pre>
+			<div class="clear"></div>
 			<a href="http://picasaweb.google.pl/barszczmm">http://picasaweb.google.pl/barszczmm</a>
 			<button class="trigger">Run</button>
 		</div>
 		<div class="example" id="example2">
 			<h3>Public album</h3>
+			<pre><code>$('#example2 .trigger').click(function() {
+	$(this).parent().<strong>brscPicasa({
+		classes: {
+			link_with_image: 'loaded-link'
+		}
+	});</strong>
+	$(this).remove();
+});
+</code></pre>
+			<div class="clear"></div>
 			<a href="http://picasaweb.google.pl/barszczmm/Fun#">http://picasaweb.google.pl/barszczmm/Fun#</a>
 			<button class="trigger">Run</button>
 		</div>
 		<div class="example" id="example3">
-			<h3>Private photos (with Colorbox callback)</h3>
+			<h3>Private photos (with Colorbox callback with title support)</h3>
+			<pre><code>$('#example3 .trigger').click(function() {
+	$(this).parent().<strong>brscPicasa({
+		classes: {
+			link_with_image: 'loaded-link'
+		},
+		callback: function() {
+			$('a.loaded-link', this).colorbox({
+				rel:'example3',
+				title: function() {
+					return $('img', this).attr('title');
+				}
+			});
+		}
+	});</strong>
+	$(this).remove();
+});
+</code></pre>
+			<div class="clear"></div>
 			<a href="http://picasaweb.google.pl/barszczmm/200408250902GRy?authkey=Gv1sRgCMb_uNzer526uAE#5290920406349381682">http://picasaweb.google.pl/barszczmm/200408250902GRy?authkey=Gv1sRgCMb_uNzer526uAE#5290920406349381682</a>
 			<br />
 			<a href="https://picasaweb.google.com/barszczmm/200408250902GRy?authkey=Gv1sRgCMb_uNzer526uAE#5290919402666965218">https://picasaweb.google.com/barszczmm/200408250902GRy?authkey=Gv1sRgCMb_uNzer526uAE#5290919402666965218</a>
@@ -258,12 +321,13 @@ title: ''
 
 		<h2 id="options-examples">Pure options examples <a href="#top" class="top">back to top</a></h2>
 		<div id="example4" class="example">
-			<h3>100 last user photos (public)</h3>
+			<h3>50 last user photos (public)</h3>
 <pre><code>$('#example4 .trigger').click(function() {
 	$(this).parent().<strong>brscPicasa({
 		user: 'barszczmm',
 		mode: 'photos',
-		photos_linkedsize: 'none'
+		photos_linkedsize: 'none',
+		max_results: 50
 	});</strong>
 	$(this).remove();
 });
@@ -293,10 +357,11 @@ title: ''
 
 
 		<h2 id="changelog">Changelog <a href="#top" class="top">back to top</a></h2>
-		<p><strong>brscPicasa 1.0</strong> (2010/10/06)</p>
+		<p><strong>brscPicasa 1.2</strong> (2012/08/29)</p>
 		<ul class="changelog-changes">
-			<li>First release</li>
-			<li>Works only in browsers that support <a href="http://en.wikipedia.org/wiki/Cross-Origin_Resource_Sharing#Browser_Support">CORS</a></li>
+			<li>Added support for two new settings: <code>max_results</code> and <code>start_index</code></li>
+			<li>Each generated <code>&lt;img></code> tag has <code>alt</code> and <code>title</code> attribute with title of photo or album</li>
+			<li>Updated demo page (documentation updated, examples extended, jQuery and Colorbox updated)</li>
 		</ul>
 
 		<p><strong>brscPicasa 1.1</strong> (2011/05/04)</p>
@@ -306,6 +371,12 @@ title: ''
 			<li>Bug fixed: links without usefull information (http://picasaweb.google.com/) should not be replaced</li>
 			<li>Code optimizations</li>
 			<li>Fixed and modified demo page, added demos with Colorbox</li>
+		</ul>
+		
+		<p><strong>brscPicasa 1.0</strong> (2010/10/06)</p>
+		<ul class="changelog-changes">
+			<li>First release</li>
+			<li>Works only in browsers that support <a href="http://en.wikipedia.org/wiki/Cross-Origin_Resource_Sharing#Browser_Support">CORS</a></li>
 		</ul>
 
 
@@ -318,18 +389,18 @@ title: ''
 
 
 		<h2 id="help">Help <a href="#top" class="top">back to top</a></h2>
-		<p>Use comments on <a href="http://tech.barszcz.info/projects/brscpicasa-jquery-plugin/">brscPicasa plugin page</a>.</p>
+		<p>Use comments on <a href="http://tech.barszcz.info/projects/brscpicasa-jquery-plugin/">brscPicasa plugin page</a> or issues on <a href="https://github.com/barszczmm/brscPicasa">brscPicasa Github page</a>.</p>
 
 
 		<h2 id="downloads">Downloads <a href="#top" class="top">back to top</a></h2>
-		<p>Downloads can be found on <a href="http://tech.barszcz.info/projects/brscpicasa-jquery-plugin/">brscPicasa plugin page</a>.</p>
+		<p>Downloads can be found on <a href="http://tech.barszcz.info/projects/brscpicasa-jquery-plugin/">brscPicasa plugin page</a> or on <a href="https://github.com/barszczmm/brscPicasa">brscPicasa Github page</a>.</p>
 
 
 		<h2 id="author">Author <a href="#top" class="top">back to top</a></h2>
 		<p>Maciej 'barszcz' Marczewski, <a href="http://www.barszcz.info/">http://www.barszcz.info/</a></p>
 
-		<script type="text/javascript" src="scripts/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript" src="scripts/jquery.colorbox-1.3.16.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery.colorbox-1.3.20.min.js"></script>
 		<script type="text/javascript" src="scripts/jquery.brscPicasa.js"></script>
 		<script type="text/javascript" src="scripts/main.js"></script>
 
