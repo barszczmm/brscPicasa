@@ -10,10 +10,7 @@ $(document).ready(function() {
 		function() {
 			$(this).parent().brscPicasa({
 				max_results: 5,
-				start_index: 3,
-				classes: {
-					link_with_image: 'loaded-link'
-				}
+				start_index: 3
 			});
 			$(this).remove();
 		}

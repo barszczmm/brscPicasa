@@ -84,6 +84,7 @@
 	album_name: 'Fun',
 	mode: 'photos'
 });</code></pre>
+
 		<h3>Setting default options</h3>
 		<p>You can specify brscPicasa options when you are executing it on selected elements (examples above) but you can also specify default options for it. This can be useful when you want to execute brscPicasa multiple times and do not want to repeat some options all the time. Here's how to set default options for brscPicasa:</p>
 		<pre><code>$.fn.brscPicasa.defaults = {
@@ -100,6 +101,9 @@
 	}
 };</code></pre>
 		<p>Options specified on execution of brscPicasa overwrite those defaults.</p>
+
+		<h3>How to get authkey for private albums and photos</h3>
+		<p>Go to your <a href="http://picasaweb.google.com/">Picasa Web Albums</a> page, select an album or photo, click <strong>Link to this album</strong> or <strong>Link to this photo</strong> on the right-hand side, copy displayed link.</p>
 
 
 		<h2 id="options">Available options <a href="#top" class="top">back to top</a></h2>
@@ -188,8 +192,8 @@
 				<tr>
 					<td><code>mode</code></td>
 					<td>What should be displayed and how to behave. Available modes:<br />
-					<code>'albums'</code> - list user public albums (<code>user</code> must be specified) (only public albums will be displayed even if <code>authkey</code> is specified - I'm currently not sure why private albums are not available)<br />
-					<code>'photos'</code> - list photos from specified album (<code>user</code> and <code>album_id</code> or <code>album_name</code> must be specified) or simply last user photos (<code>user</code> must be specified, <code>album_id</code> and <code>album_name</code> must be empty)<br />
+					<code>'albums'</code> - list user public albums (<code>user</code> must be specified) (only public albums will be displayed, there is no <code>authkey</code> for all albums page)<br />
+					<code>'photos'</code> - list photos from specified album (<code>user</code> and <code>album_id</code> or <code>album_name</code> must be specified) or simply last user public photos (<code>user</code> must be specified, <code>album_id</code> and <code>album_name</code> must be empty)<br />
 					<code>'photo'</code> - display one photo (<code>user</code> and <code>album_id</code> or <code>album_name</code> and <code>photo_id</code> must be specified)<br />
 					<code>'from_link'</code> - find links to Picasa Web Albums and guess what to display from those links (link replacement mode)</td>
 					<td><code>'from_link'</code></td>
@@ -259,15 +263,13 @@ title: ''            // added to &lt;span> element that
 
 
 		<h2 id="link-examples">Link replacing examples <a href="#top" class="top">back to top</a></h2>
+
 		<div class="example" id="example1">
 			<h3>5 public albums starting from 3rd</h3>
 			<pre><code>$('#example1 .trigger').click(function() {
 	$(this).parent().<strong>brscPicasa({
 		max_results: 5,
-		start_index: 3,
-		classes: {
-			link_with_image: 'loaded-link'
-		}
+		start_index: 3
 	});</strong>
 	$(this).remove();
 });
@@ -276,6 +278,7 @@ title: ''            // added to &lt;span> element that
 			<a href="http://picasaweb.google.pl/barszczmm">http://picasaweb.google.pl/barszczmm</a>
 			<button class="trigger">Run</button>
 		</div>
+
 		<div class="example" id="example2">
 			<h3>Public album</h3>
 			<pre><code>$('#example2 .trigger').click(function() {
@@ -291,6 +294,7 @@ title: ''            // added to &lt;span> element that
 			<a href="http://picasaweb.google.pl/barszczmm/Fun#">http://picasaweb.google.pl/barszczmm/Fun#</a>
 			<button class="trigger">Run</button>
 		</div>
+
 		<div class="example" id="example3">
 			<h3>Private photos (with Colorbox callback with title support)</h3>
 			<pre><code>$('#example3 .trigger').click(function() {
@@ -320,6 +324,7 @@ title: ''            // added to &lt;span> element that
 
 
 		<h2 id="options-examples">Pure options examples <a href="#top" class="top">back to top</a></h2>
+
 		<div id="example4" class="example">
 			<h3>50 last user photos (public)</h3>
 <pre><code>$('#example4 .trigger').click(function() {
@@ -335,6 +340,7 @@ title: ''            // added to &lt;span> element that
 			<div class="clear"></div>
 			<button class="trigger">Run</button>
 		</div>
+
 		<div id="example5" class="example">
 			<h3>Private photo (with Colorbox callback)</h3>
 <pre><code>$('#example5 .trigger').click(function() {
@@ -372,7 +378,7 @@ title: ''            // added to &lt;span> element that
 			<li>Code optimizations</li>
 			<li>Fixed and modified demo page, added demos with Colorbox</li>
 		</ul>
-		
+
 		<p><strong>brscPicasa 1.0</strong> (2010/10/06)</p>
 		<ul class="changelog-changes">
 			<li>First release</li>
