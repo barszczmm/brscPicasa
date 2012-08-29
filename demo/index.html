@@ -24,6 +24,7 @@
 			<li><a href="#options">Options</a></li>
 			<li><a href="#photo-sizes">Available photo sizes</a></li>
 			<li><a href="#link-examples">Link replacing examples</a></li>
+			<li><a href="#link-examples-mobile">Link replacing examples for links to mobile version of Picasa Web Albums page</a></li>
 			<li><a href="#options-examples">Pure options examples</a></li>
 			<li><a href="#changelog">Changelog</a></li>
 			<li><a href="#todo">TODO</a></li>
@@ -52,14 +53,14 @@
 
 		<h3>It's easy to use but powerful</h3>
 		<p>First of all it can be used in two ways: in link replacing mode and in standard pure options mode.</p>
-		<p><strong>Link replacing mode</strong> is unique feature (at least I didn't find any plugin with similar functionality) and is very easy to use. All you have to do is to put some link to Picasa picture/album/user on your page and execute brscPicasa on that link or on any of it's parents (for instance on <em>body</em> element). brscPicasa will find link to Picasa page and will replace it with photos from that page. You don't have to know any album or photo IDs, you don't have to copy any RSS links to your albums. Just go to your Picasa picture/album/user page, copy address from browser's address bar and put it on your page. brscPicasa will do the rest.</p>
-		<p><strong>Standard pure options mode</strong> is standard mode known from other similar plugins: you have to specify all options and IDs (like <em>user</em>, <em>album_id</em> or <em>album_name</em>, <em>picture_id</em>) in JavaScript.</p>
+		<p><strong>Link replacing mode</strong> is unique feature (at least I didn't find any plugin with similar functionality) and is very easy to use. All you have to do is to put some link to Picasa picture/album/user on your page and execute brscPicasa on that link or on any of it's parents (for instance on <code>&lt;body></code> element). brscPicasa will find link to Picasa page and will replace it with photos from that page. You don't have to know any album or photo IDs, you don't have to copy any RSS links to your albums. Just go to your Picasa picture/album/user page, copy address from browser's address bar and put it on your page. brscPicasa will do the rest.</p>
+		<p><strong>Standard pure options mode</strong> is standard mode known from other similar plugins: you have to specify all options and IDs (like <code>user</code>, <code>album_id</code> or <code>album_name</code>, <code>picture_id</code>) in JavaScript.</p>
 
 		<h3>It's quick and it minimizes use of bandwidth</h3>
 		<p>Second unique feature of brscPicasa is use of <strong><a href="http://code.google.com/intl/pl/apis/gdata/docs/2.0/reference.html#PartialResponse">partial response</a></strong> of Google Data Protocol. This means that brscPicasa requests only minimal amount of information from Picasa API (only what it really needs) so it works quicker and displays your photos faster. Some numbers: information about 100 pictures without partial response weights 15,6KB, brscPicasa downloads only 3,8KB thanks to partial response (that's about 75% less).</p>
 
 		<h3>It can display public and private photos</h3>
-		<p>You can display both public and private photos in both modes. To display private photos you need to specify <em>authkey</em> in url (link replacing mode) or in brscPicasa settings (pure options mode).</p>
+		<p>You can display both public and private photos in both modes. To display private photos you need to specify <code>authkey</code> in url (link replacing mode) or in brscPicasa settings (pure options mode).</p>
 
 
 		<h2 id="usage">Usage <a href="#top" class="top">back to top</a></h2>
@@ -282,11 +283,7 @@ title: ''            // added to &lt;span> element that
 		<div class="example" id="example2">
 			<h3>Public album</h3>
 			<pre><code>$('#example2 .trigger').click(function() {
-	$(this).parent().<strong>brscPicasa({
-		classes: {
-			link_with_image: 'loaded-link'
-		}
-	});</strong>
+	$(this).parent().<strong>brscPicasa();</strong>
 	$(this).remove();
 });
 </code></pre>
@@ -322,10 +319,51 @@ title: ''            // added to &lt;span> element that
 		</div>
 		<p>Real life example can be seen on <a href="http://blog.barszcz.info/2009/07/19/zalegle-zdjecia/">my private blog</a>.</p>
 
+		<h2 id="link-examples-mobile">Link replacing examples for links to mobile version of Picasa Web Albums page<a href="#top" class="top">back to top</a></h2>
+
+		<div class="example" id="example4">
+			<h3>Public albums (do not remove link)</h3>
+			<pre><code>$('#example4 .trigger').click(function() {
+	$(this).parent().<strong>brscPicasa({
+		from_link_target: '#example4'
+	});</strong>
+	$(this).remove();
+});
+</code></pre>
+			<div class="clear"></div>
+			<a href="https://picasaweb.google.com/m/albumList?uname=105160982765738138678">https://picasaweb.google.com/m/albumList?uname=105160982765738138678</a>
+			<button class="trigger">Run</button>
+		</div>
+
+		<div class="example" id="example5">
+			<h3>Private album</h3>
+			<pre><code>$('#example5 .trigger').click(function() {
+	$(this).parent().<strong>brscPicasa({
+		max_results: 5
+	});</strong>
+	$(this).remove();
+});
+</code></pre>
+			<div class="clear"></div>
+			<a href="https://picasaweb.google.com/m/viewAlbum?uname=105160982765738138678&aid=5290918691117866881&start=0&authkey=Gv1sRgCMb_uNzer526uAE">https://picasaweb.google.com/m/viewAlbum?uname=105160982765738138678&aid=5290918691117866881&start=0&authkey=Gv1sRgCMb_uNzer526uAE</a>
+			<button class="trigger">Run</button>
+		</div>
+
+		<div class="example" id="example6">
+			<h3>Private photo</h3>
+			<pre><code>$('#example6 .trigger').click(function() {
+	$(this).parent().<strong>brscPicasa();</strong>
+	$(this).remove();
+});
+</code></pre>
+			<div class="clear"></div>
+			<a href="https://picasaweb.google.com/m/photo?uname=105160982765738138678&id=5290921591624985778&aid=5290918691117866881&start=75&authkey=Gv1sRgCMb_uNzer526uAE">https://picasaweb.google.com/m/photo?uname=105160982765738138678&id=5290921591624985778&aid=5290918691117866881&start=75&authkey=Gv1sRgCMb_uNzer526uAE</a>
+			<button class="trigger">Run</button>
+		</div>
 
 		<h2 id="options-examples">Pure options examples <a href="#top" class="top">back to top</a></h2>
 
-		<div id="example4" class="example">
+		<div id="example7" class="example">
 			<h3>50 last user photos (public)</h3>
 <pre><code>$('#example4 .trigger').click(function() {
 	$(this).parent().<strong>brscPicasa({
@@ -341,7 +379,7 @@ title: ''            // added to &lt;span> element that
 			<button class="trigger">Run</button>
 		</div>
 
-		<div id="example5" class="example">
+		<div id="example8" class="example">
 			<h3>Private photo (with Colorbox callback)</h3>
 <pre><code>$('#example5 .trigger').click(function() {
 	$(this).parent().<strong>brscPicasa({
@@ -367,6 +405,7 @@ title: ''            // added to &lt;span> element that
 		<ul class="changelog-changes">
 			<li>Added support for two new settings: <code>max_results</code> and <code>start_index</code></li>
 			<li>Each generated <code>&lt;img></code> tag has <code>alt</code> and <code>title</code> attribute with title of photo or album</li>
+			<li>Replace also links to mobile version of Picasa Web Albums (<a href="http://picasaweb.google.com/m/">http://picasaweb.google.com/m/</a>)</li>
 			<li>Updated demo page (documentation updated, examples extended, jQuery and Colorbox updated)</li>
 		</ul>
 
@@ -390,7 +429,7 @@ title: ''            // added to &lt;span> element that
 		<ul>
 			<li>Add options to change generated tags (span or p instead of div for example)</li>
 			<li>Add possibility to add target attribute for generated links</li>
-			<li>Replace also links to mobile version of Picasa Web Albums (http://picasaweb.google.com/m/photo?uname=barszczmm&id=5420781022396160258&aid=5420779723264173713&start=5)</li>
+			<li><del>Replace also links to mobile version of Picasa Web Albums (http://picasaweb.google.com/m/photo?uname=barszczmm&id=5420781022396160258&aid=5420779723264173713&start=5)</del> - added in version 1.2</li>
 		</ul>
 
 

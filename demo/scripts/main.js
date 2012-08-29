@@ -19,11 +19,7 @@ $(document).ready(function() {
 	// link replacing example #2: public album
 	$('#example2 .trigger').click(
 		function() {
-			$(this).parent().brscPicasa({
-				classes: {
-					link_with_image: 'loaded-link'
-				}
-			});
+			$(this).parent().brscPicasa();
 			$(this).remove();
 		}
 	);
@@ -48,8 +44,36 @@ $(document).ready(function() {
 		}
 	);
 
-	// pure options example #1: 50 last user public photos
+	// mobile link replacing example #1
 	$('#example4 .trigger').click(
+		function() {
+			$(this).parent().brscPicasa({
+				from_link_target: '#example4'
+			});
+			$(this).remove();
+		}
+	);
+
+	// mobile link replacing example #2
+	$('#example5 .trigger').click(
+		function() {
+			$(this).parent().brscPicasa({
+				max_results: 5
+			});
+			$(this).remove();
+		}
+	);
+
+	// mobile link replacing example #3
+	$('#example6 .trigger').click(
+		function() {
+			$(this).parent().brscPicasa();
+			$(this).remove();
+		}
+	);
+
+	// pure options example #1: 50 last user public photos
+	$('#example7 .trigger').click(
 		function() {
 			$(this).parent().brscPicasa({
 				user: 'barszczmm',
@@ -62,7 +86,7 @@ $(document).ready(function() {
 	);
 
 	// pure options example #2: private photo
-	$('#example5 .trigger').click(
+	$('#example8 .trigger').click(
 		function() {
 			$(this).parent().brscPicasa({
 				user: 'barszczmm',

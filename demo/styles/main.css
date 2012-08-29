@@ -61,8 +61,8 @@ em { font-style: italic; }
 strong { font-weight: bold; }
 
 pre { margin-bottom: 1em; margin-top: 0.2em; float: left; clear: both; }
-code { background: #f4f4f4; border: 1px dashed #999; font-family: "Lucida Console", Monaco, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", monospace; font-size: 0.93em; }
-pre code { display: block; padding: 1em; }
+code { background: #f7f7f7; border: 1px dashed #eee; font-family: "Lucida Console", Monaco, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", monospace; font-size: 0.93em; }
+pre code { display: block; padding: 1em; background: #f4f4f4; border: 1px dashed #999; }
 
 h1 { font-weight: bold; font-size: 2em; }
 h2 { font-weight: bold; font-size: 1.28em; margin-top: 3em; margin-bottom: 0.2em; border-bottom: 1px dotted #ddd; clear: both; }
@@ -79,7 +79,7 @@ thead th, tfoot td { font-weight: bold; border: 1px solid #ddd; }
 td, th { padding: 0.4em 1em; }
 td { vertical-align: top; }
 table pre { margin: 0; }
-table code { background: #f7f7f7; border: 1px dashed #eee; padding: 0; }
+table code { padding: 0; background: #f7f7f7; border: 1px dashed #eee; }
 
 button { display: block; margin-top: 0.5em; clear: both; }
 
