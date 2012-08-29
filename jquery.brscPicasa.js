@@ -265,24 +265,54 @@
 						}
 
 						var pathname = this.pathname;
+						// remove first slash
 						if (pathname.substr(0, 1) === '/') {
 							pathname = pathname.substr(1, pathname.length);
 						}
 						var path_split = pathname.split('/');
-						if (path_split.length == 2) { // there is user and albumname in path
-							o.user = path_split[0];
-							o.album_name = path_split[1];
-							if (this.hash) { // there is photoid in path
-								o.photo_id = this.hash.replace('#', '');
+						if (path_split.length == 0 || path_split[0] == '') { // nothing usefull in link
+							return;
+
+						} else if (path_split[0] == 'm' && path_split.length == 2) { // link to mobile version of Picasa
+							if (path_split[1] == 'albumList') {
+								o.mode = 'albums';
+							} else if (path_split[1] == 'viewAlbum') {
+								o.mode = 'photos';
+							} else if (path_split[1] == 'photo') {
 								o.mode = 'photo';
 							} else {
-								o.mode = 'photos';
+								return;
 							}
-						} else if (path_split.length == 1 && path_split[0] != '') { // there is only username in path
-							o.user = path_split[0];
-							o.mode = 'albums';
-						} else { // can't find anything usefull in path
-							return;
+							if (this.search) {
+								var params = this.search.replace('?', '').split('&');
+								for(var i = 0; i < params.length; i++) {
+									param = params[i].split('=');
+									if (param[0] === 'uname') {
+										o.user = param[1];
+									} else if (param[0] === 'aid') {
+										o.album_id = param[1];
+									} else if (param[0] === 'id') {
+										o.photo_id = param[1];
+									}
+								}
+							} else { // no additional info in link
+								return;
+							}
+
+						} else { // link to normal version of Picasa
+							if (path_split.length == 2) { // there is user and albumname in path
+								o.user = path_split[0];
+								o.album_name = path_split[1];
+								if (this.hash) { // there is photoid in path
+									o.photo_id = this.hash.replace('#', '');
+									o.mode = 'photo';
+								} else {
+									o.mode = 'photos';
+								}
+							} else { // there is only username in path
+								o.user = path_split[0];
+								o.mode = 'albums';
+							}
 						}
 
 						if (!o.from_link_target) {
